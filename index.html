@@ -7,26 +7,27 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, #ff0000, #4da6ff, #F7931A);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
+  background: #4da6ff;
+  animation: bgCycle 12s infinite;
   color: #fff;
   text-align: center;
+  transition: background 3s;
 }
 
-@keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+@keyframes bgCycle {
+  0% { background: #4da6ff; }
+  33% { background: #F7931A; }
+  66% { background: #ff0000; }
+  100% { background: #4da6ff; }
+}
+
+header, .section, footer {
+  animation: fadeInUp 1.2s ease forwards;
 }
 
 @keyframes fadeInUp {
   from {opacity: 0; transform: translateY(30px);}
   to {opacity: 1; transform: translateY(0);}
-}
-
-header, .section, footer {
-  animation: fadeInUp 1.2s ease forwards;
 }
 
 header {
@@ -39,14 +40,14 @@ header img {
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid white;
-  animation: glowLogo 6s infinite;
+  animation: logoCycle 12s infinite;
 }
 
-@keyframes glowLogo {
-  0% { box-shadow: 0 0 20px red; border-color: red; }
-  33% { box-shadow: 0 0 25px #4da6ff; border-color: #4da6ff; }
-  66% { box-shadow: 0 0 25px #F7931A; border-color: #F7931A; }
-  100% { box-shadow: 0 0 20px red; border-color: red; }
+@keyframes logoCycle {
+  0% { box-shadow: 0 0 20px #F7931A; border-color: #F7931A; }
+  33% { box-shadow: 0 0 25px #ff0000; border-color: #ff0000; }
+  66% { box-shadow: 0 0 25px #4da6ff; border-color: #4da6ff; }
+  100% { box-shadow: 0 0 20px #F7931A; border-color: #F7931A; }
 }
 
 h1 {
