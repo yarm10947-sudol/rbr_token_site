@@ -7,16 +7,30 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+  background: linear-gradient(135deg, red, #4da6ff, #F7931A);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
   color: #fff;
   text-align: center;
 }
 
+@keyframes gradientMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+@keyframes fadeInUp {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+header, .section, footer {
+  animation: fadeInUp 1.2s ease forwards;
+}
+
 header {
   padding: 50px 20px;
-  background: linear-gradient(120deg, #ff3b3b, #3b9dff);
-  border-bottom-left-radius: 40% 10%;
-  border-bottom-right-radius: 40% 10%;
 }
 
 header img {
@@ -25,12 +39,19 @@ header img {
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid white;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px rgba(255,255,255,0.7);
+  animation: pulseGlow 3s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.7); }
+  50% { box-shadow: 0 0 35px rgba(255,255,255,1); }
 }
 
 h1 {
   font-size: 42px;
   margin: 15px 0 5px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.7);
 }
 
 p {
@@ -61,13 +82,30 @@ p {
   padding: 60px 20px;
 }
 
+.card {
+  background: rgba(0,0,0,0.4);
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: auto;
+  box-shadow: 0 0 25px rgba(255,255,255,0.3);
+}
+
+.card h2 {
+  background: rgba(255,0,0,0.8);
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
 .roadmap {
-  background: #F7931A;
+  background: rgba(255,255,255,0.1);
   padding: 30px;
   border-radius: 12px;
   max-width: 700px;
   margin: auto;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(255,255,255,0.4);
 }
 
 .roadmap ul {
@@ -80,7 +118,7 @@ p {
 .roadmap li {
   font-size: 20px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
 .socials a {
@@ -89,11 +127,16 @@ p {
   font-size: 20px;
   text-decoration: none;
   font-weight: bold;
+  transition: 0.3s;
+}
+
+.socials a:hover {
+  text-shadow: 0 0 10px white;
 }
 
 footer {
   padding: 25px;
-  background: #111;
+  background: rgba(0,0,0,0.6);
   font-size: 14px;
 }
 
@@ -106,15 +149,15 @@ footer p {
 </head>
 <body>
   <header>
-    <img src="IMG_20250723_204527.jpg" alt="RBR Logo" />
+    <img src="logo.png" alt="RBR Logo" />
     <h1>Red Blue Rabbit (RBR)</h1>
     <p>The ultimate meme coin on Solana blockchain – Join the Rabbit Army and hop to the moon!</p>
     <a class="btn" href="https://pump.fun/CwxXWCJaCAuEWviKQbm3ojCcZ5icMywSuN1koCDgZ2dz" target="_blank">🚀 Buy on Pump.fun</a>
   </header>  <div class="section">
-    <h2 style ="color:white;"> 🐇 About RBR</h2>
-  <div style = "background: red;>
-    <p>Red Blue Rabbit (RBR) is a fun community-driven meme token on Solana. We combine art, memes, and crypto culture to build the strongest rabbit army on the blockchain. Get ready for the moon ride! 🚀</p>
-      <div/>
+    <div class="card">
+      <h2>🐇 About RBR</h2>
+      <p>Red Blue Rabbit is a community-driven meme token combining fun, art and crypto innovation. Be part of the RBR family and enjoy the ride to the moon! 🚀</p>
+    </div>
   </div>  <div class="section roadmap">
     <h2>📜 Roadmap</h2>
     <ul>
@@ -128,6 +171,7 @@ footer p {
     <div class="socials">
       <a href="https://t.me/RBR_REDBLUERABBIT" target="_blank">Telegram</a>
       <a href="https://x.com/rabbit_red_blue" target="_blank">Twitter</a>
+      <a href="https://youtube.com/@rbr---redbluerabbit" target="_blank">YouTube</a>
     </div>
   </div>  <footer>
     <p><b>Contract Address:</b></p>
