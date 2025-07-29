@@ -7,28 +7,34 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
-  background: #4da6ff;
-  animation: bgCycle 12s infinite;
+  background: linear-gradient(270deg, #4da6ff, #F7931A, #ff0000);
+  background-size: 600% 600%;
+  animation: bgFlow 30s ease infinite;
   color: #fff;
   text-align: center;
-  transition: background 3s;
 }
 
-@keyframes bgCycle {
-  0% { background: #4da6ff; }
-  33% { background: #F7931A; }
-  66% { background: #ff0000; }
-  100% { background: #4da6ff; }
-}
-
-header, .section, footer {
-  animation: fadeInUp 1.2s ease forwards;
+@keyframes bgFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @keyframes fadeInUp {
-  from {opacity: 0; transform: translateY(30px);}
+  from {opacity: 0; transform: translateY(40px);}
   to {opacity: 1; transform: translateY(0);}
 }
+
+header, .section, footer {
+  opacity: 0;
+  animation: fadeInUp 1.5s ease forwards;
+}
+
+header { animation-delay: 0.3s; }
+.section:nth-of-type(1) { animation-delay: 0.8s; }
+.section:nth-of-type(2) { animation-delay: 1.3s; }
+.section:nth-of-type(3) { animation-delay: 1.8s; }
+footer { animation-delay: 2.3s; }
 
 header {
   padding: 50px 20px;
@@ -73,12 +79,42 @@ p {
   font-size: 18px;
   border-radius: 8px;
   transition: 0.3s;
+  opacity: 0;
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 1s;
 }
 
 .btn:hover {
   background: #f0f0f0;
   transform: scale(1.05);
 }
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.social-buttons a {
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  animation: fadeInUp 1.5s ease forwards;
+  transition: transform 0.3s;
+}
+
+.social-buttons a:hover {
+  transform: scale(1.1);
+}
+
+.youtube-btn { background: #ff0000; animation-delay: 1.2s; }
+.twitter-btn { background: #1DA1F2; animation-delay: 1.4s; }
+.telegram-btn { background: #0088cc; animation-delay: 1.6s; }
 
 .section {
   padding: 60px 20px;
@@ -123,19 +159,6 @@ p {
   border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
-.socials a {
-  color: white;
-  margin: 0 15px;
-  font-size: 20px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.socials a:hover {
-  text-shadow: 0 0 10px white;
-}
-
 footer {
   padding: 25px;
   background: rgba(0,0,0,0.6);
@@ -154,7 +177,12 @@ footer p {
     <img src="IMG_20250723_204527.jpg" alt="RBR Logo" />
     <h1>Red Blue Rabbit (RBR)</h1>
     <p>The ultimate meme coin on Solana blockchain – Join the Rabbit Army and hop to the moon!</p>
-    <a class="btn" href="https://pump.fun/CwxXWCJaCAuEWviKQbm3ojCcZ5icMywSuN1koCDgZ2dz" target="_blank">🚀 Buy on Pump.fun</a>
+    <a class="btn" href="https://pump.fun/CwxXWCJaCAuEWviKQbm3ojCcZ5icMywSuN1koCDgZ2dz" target="_blank">🚀 Buy on Pump.fun</a><div class="social-buttons">
+  <a href="https://youtube.com/@rbr---redbluerabbit" target="_blank" class="youtube-btn">▶ Subscribe YouTube</a>
+  <a href="https://x.com/rabbit_red_blue" target="_blank" class="twitter-btn">✖ Follow on X</a>
+  <a href="https://t.me/RBR_REDBLUERABBIT" target="_blank" class="telegram-btn">✈ Join Telegram</a>
+</div>
+
   </header>  <div class="section">
     <div class="card">
       <h2>🐇 About RBR</h2>
@@ -168,13 +196,6 @@ footer p {
       <li>🚀 Listing on trackers & marketing push</li>
       <li>🌕 Partnerships and big campaigns</li>
     </ul>
-  </div>  <div class="section">
-    <h2>🌐 Join the Community</h2>
-    <div class="socials">
-      <a href="https://t.me/RBR_REDBLUERABBIT" target="_blank">Telegram</a>
-      <a href="https://x.com/rabbit_red_blue" target="_blank">Twitter</a>
-      <a href="https://youtube.com/@rbr---redbluerabbit" target="_blank">YouTube</a>
-    </div>
   </div>  <footer>
     <p><b>Contract Address:</b></p>
     <p>CwxXWCJaCAuEWviKQbm3ojCcZ5icMywSuN1koCDgZ2dz</p>
