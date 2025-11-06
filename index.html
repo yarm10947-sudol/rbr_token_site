@@ -1,125 +1,210 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CADO Animation</title>
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(#202731, #151922);
-      overflow: hidden;
-      font-family: 'Poppins', sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launching CADO 2026</title>
 
-    .scene {
-      position: relative;
-      width: 400px;
-      height: 400px;
-      background: url('https://i.imgur.com/Yr7zWcO.jpeg') no-repeat center/cover;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
+<style>
+/* Основной контейнер */
+#launch-2026 {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(#000, #02010a, #090022);
+  overflow: hidden;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  text-align: center;
+}
 
-    .character {
-      position: absolute;
-      width: 80px;
-      bottom: 20px;
-      animation: moveUpDown 1.5s infinite ease-in-out alternate;
-    }
+/* Звёзды */
+.stars, .falling-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.stars {
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  opacity: 0.7;
+}
+.falling-stars {
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  animation: fallingStars 6s linear infinite;
+  opacity: 0.5;
+}
+@keyframes fallingStars { 
+  from { background-position: 0 0; } 
+  to { background-position: 0 1000px; } 
+}
 
-    .cat {
-      left: 40px;
-      background: url('https://i.imgur.com/cat.png') no-repeat center/contain;
-      height: 80px;
-    }
+/* Надпись сверху */
+.launch-title {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  max-width: 90%;
+  line-height: 1.2;
+  white-space: normal;
+  text-shadow: 0 0 15px white, 0 0 30px cyan;
+  z-index: 5;
+}
 
-    .dog {
-      right: 40px;
-      background: url('https://i.imgur.com/dog.png') no-repeat center/contain;
-      height: 80px;
-      animation-delay: .3s;
-    }
+/* Центральный свет */
+.center-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(0,255,255,0.2), transparent 70%);
+  border-radius: 50%;
+  filter: blur(30px);
+  z-index: 1;
+  animation: pulse 3s infinite alternate;
+}
+@keyframes pulse { 
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6;} 
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9;} 
+}
 
-    @keyframes moveUpDown {
-      from { transform: translateY(0); }
-      to { transform: translateY(-20px); }
-    }
+/* Ракета */
+.rocket {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 100px;
+  transition: bottom 5s ease-out;
+}
+.rocket img { width: 100%; height: auto; }
+.flame {
+  position: absolute;
+  bottom:-25px;
+  left:50%;
+  transform:translateX(-50%);
+  width:20px;
+  height:60px;
+  background: radial-gradient(ellipse at center, orange 0%, yellow 50%, transparent 80%);
+  filter: blur(4px);
+  opacity:0.8;
+  animation: flame 0.3s infinite alternate;
+}
+@keyframes flame { 
+  0% { height:45px; opacity:0.7;} 
+  100%{height:60px; opacity:1;} 
+}
 
-    .meteor {
-      position: absolute;
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 60px;
-      background: url('https://i.imgur.com/meteor.png') no-repeat center/contain;
-      animation: fall 2s ease-in forwards;
-    }
+/* Кот и собака */
+#animals {
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  text-align: center;
+  z-index: 4;
+  height: 120px;
+}
+.animal {
+  display: inline-block;
+  font-size: 3rem;
+  margin: 0 20px;
+  position: relative;
+  bottom: 0;
+  transition: transform 2s ease-in-out;
+}
+.cat { transform: translateX(-150px); }
+.dog { transform: translateX(150px); }
 
-    @keyframes fall {
-      to {
-        top: 200px;
-        transform: translateX(-50%) translateY(300px) rotate(600deg);
-      }
-    }
+/* CADO */
+.cado { 
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  font-size: 2.5rem; 
+  font-weight: bold; 
+  color: cyan; 
+  text-shadow: 0 0 10px white, 0 0 20px cyan; 
+  opacity: 0; 
+  z-index: 5; 
+  transition: opacity 1s ease; 
+}
+.hidden { display: none; }
 
-    .explosion {
-      position: absolute;
-      top: 250px;
-      left: 50%;
-      width: 120px;
-      height: 120px;
-      transform: translateX(-50%);
-      background: url('https://i.imgur.com/explosion.gif') no-repeat center/contain;
-      display: none;
-    }
-
-    .text {
-      position: absolute;
-      width: 100%;
-      top: 50%;
-      text-align: center;
-      font-size: 24px;
-      color: white;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px #ffcc00;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-  </style>
+</style>
 </head>
 <body>
 
-  <div class="scene">
-    <div class="character cat"></div>
-    <div class="character dog"></div>
-    <div class="meteor"></div>
-    <div class="explosion"></div>
-    <div class="text">CADO TO THE MOON 🚀</div>
+<section id="launch-2026">
+  <!-- Звёздный фон -->
+  <div class="stars"></div>
+  <div class="falling-stars"></div>
+
+  <!-- Надпись сверху -->
+  <h1 class="launch-title">🚀 Launching<br>in 2026</h1>
+
+  <!-- Центральный свет -->
+  <div class="center-glow"></div>
+
+  <!-- Ракета -->
+  <div class="rocket">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Rocket_icon.svg" alt="Rocket Launch">
+    <div class="flame"></div>
   </div>
 
-  <script>
-    const meteor = document.querySelector('.meteor');
-    const explosion = document.querySelector('.explosion');
-    const text = document.querySelector('.text');
+  <!-- Кот, собака и CADO -->
+  <div id="animals">
+    <div class="animal cat">🐱</div>
+    <div class="animal dog">🐶</div>
+    <div class="cado hidden">CADO</div>
+  </div>
+</section>
 
-    meteor.addEventListener('animationend', () => {
-      meteor.style.display = 'none';
-      explosion.style.display = 'block';
+<script>
+function launchSequence() {
+  const rocket = document.querySelector('.rocket');
+  const cat = document.querySelector('.cat');
+  const dog = document.querySelector('.dog');
+  const cado = document.querySelector('.cado');
 
-      setTimeout(() => {
-        explosion.style.display = 'none';
-        text.style.opacity = '1';
-      }, 800);
-    });
-  </script>
+  // Сброс в начальную позицию
+  rocket.style.bottom = '5%';
+  cat.style.transform = 'translateX(-150px)';
+  dog.style.transform = 'translateX(150px)';
+  cado.style.opacity = 0;
+  cado.classList.add('hidden');
+
+  // Старт
+  setTimeout(() => {
+    rocket.style.bottom = '120%';       // взлёт ракеты
+    cat.style.transform = 'translateX(0)';  // кот в центр
+    dog.style.transform = 'translateX(0)';  // собака в центр
+  }, 100);
+
+  // Появление CADO
+  setTimeout(() => {
+    cado.classList.remove('hidden');
+    cado.style.opacity = 1;
+  }, 3000);
+
+  // Возвращение кота и собаки назад
+  setTimeout(() => {
+    cat.style.transform = 'translateX(-150px)';
+    dog.style.transform = 'translateX(150px)';
+    cado.style.opacity = 0;
+  }, 5500);
+
+  // Повтор цикла
+  setTimeout(launchSequence, 8000);
+}
+
+window.addEventListener('load', launchSequence);
+</script>
 
 </body>
 </html>
