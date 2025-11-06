@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -107,12 +107,12 @@
   width: 100%;
   text-align: center;
   z-index: 4;
-  height: 120px;
 }
 .animal {
   display: inline-block;
-  font-size: 3rem;
-  margin: 0 20px;
+  width: 100px;
+  height: auto;
+  margin: 0 40px;
   position: relative;
   bottom: 0;
   transition: transform 2s ease-in-out;
@@ -123,7 +123,7 @@
 /* CADO */
 .cado { 
   position: absolute; 
-  bottom: 20px; 
+  bottom: 10%; 
   left: 50%; 
   transform: translateX(-50%); 
   font-size: 2.5rem; 
@@ -159,8 +159,8 @@
 
   <!-- Кот, собака и CADO -->
   <div id="animals">
-    <div class="animal cat">🐱</div>
-    <div class="animal dog">🐶</div>
+    <img src="8211e44c96b8de4042fc9bf94a341cd6_high.webp" alt="Cat" class="animal cat">
+    <img src="0563649e52520b835b2b7780b981eeb2_high.webp" alt="Dog" class="animal dog">
     <div class="cado hidden">CADO</div>
   </div>
 </section>
@@ -172,34 +172,29 @@ function launchSequence() {
   const dog = document.querySelector('.dog');
   const cado = document.querySelector('.cado');
 
-  // Сброс в начальную позицию
   rocket.style.bottom = '5%';
   cat.style.transform = 'translateX(-150px)';
   dog.style.transform = 'translateX(150px)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
-  // Старт
   setTimeout(() => {
-    rocket.style.bottom = '120%';       // взлёт ракеты
-    cat.style.transform = 'translateX(0)';  // кот в центр
-    dog.style.transform = 'translateX(0)';  // собака в центр
+    rocket.style.bottom = '120%';
+    cat.style.transform = 'translateX(0)';
+    dog.style.transform = 'translateX(0)';
   }, 100);
 
-  // Появление CADO
   setTimeout(() => {
     cado.classList.remove('hidden');
     cado.style.opacity = 1;
   }, 3000);
 
-  // Возвращение кота и собаки назад
   setTimeout(() => {
     cat.style.transform = 'translateX(-150px)';
     dog.style.transform = 'translateX(150px)';
     cado.style.opacity = 0;
   }, 5500);
 
-  // Повтор цикла
   setTimeout(launchSequence, 8000);
 }
 
