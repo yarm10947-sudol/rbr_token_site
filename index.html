@@ -1,21 +1,19 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Launching CADO 2026</title>
-
 <style>
 /* Основной контейнер */
-#launch-2026 {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  background: radial-gradient(#000, #02010a, #090022);
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   overflow: hidden;
   font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(#000, #02010a, #090022);
   color: white;
-  text-align: center;
 }
 
 /* Звёзды */
@@ -24,6 +22,8 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
+  top: 0;
+  left: 0;
 }
 .stars {
   background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
@@ -34,9 +34,9 @@
   animation: fallingStars 6s linear infinite;
   opacity: 0.5;
 }
-@keyframes fallingStars { 
-  from { background-position: 0 0; } 
-  to { background-position: 0 1000px; } 
+@keyframes fallingStars {
+  from { background-position: 0 0; }
+  to { background-position: 0 1000px; }
 }
 
 /* Надпись сверху */
@@ -51,6 +51,7 @@
   white-space: normal;
   text-shadow: 0 0 15px white, 0 0 30px cyan;
   z-index: 5;
+  text-align: center;
 }
 
 /* Центральный свет */
@@ -67,9 +68,9 @@
   z-index: 1;
   animation: pulse 3s infinite alternate;
 }
-@keyframes pulse { 
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6;} 
-  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9;} 
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9; }
 }
 
 /* Ракета */
@@ -85,54 +86,60 @@
 .rocket img { width: 100%; height: auto; }
 .flame {
   position: absolute;
-  bottom:-25px;
-  left:50%;
-  transform:translateX(-50%);
-  width:20px;
-  height:60px;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 60px;
   background: radial-gradient(ellipse at center, orange 0%, yellow 50%, transparent 80%);
   filter: blur(4px);
-  opacity:0.8;
+  opacity: 0.8;
   animation: flame 0.3s infinite alternate;
 }
-@keyframes flame { 
-  0% { height:45px; opacity:0.7;} 
-  100%{height:60px; opacity:1;} 
+@keyframes flame {
+  0% { height:45px; opacity:0.7; }
+  100% { height:60px; opacity:1; }
 }
 
 /* Кот и собака */
 #animals {
   position: absolute;
-  bottom: 5%;
+  bottom: 10%;
   width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 120px;
   z-index: 4;
 }
+
 .animal {
-  display: inline-block;
   width: 100px;
   height: auto;
-  margin: 0 40px;
-  position: relative;
-  bottom: 0;
-  transition: transform 2s ease-in-out;
+  transition: transform 2.5s ease-in-out;
 }
-.cat { transform: translateX(-200px); }
-.dog { transform: translateX(200px); }
+
+.cat {
+  transform: translateX(-200px);
+}
+
+.dog {
+  transform: translateX(200px);
+}
 
 /* CADO */
-.cado { 
-  position: absolute; 
-  bottom: 10%; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  font-size: 2.5rem; 
-  font-weight: bold; 
-  color: cyan; 
-  text-shadow: 0 0 10px white, 0 0 20px cyan; 
-  opacity: 0; 
-  z-index: 5; 
-  transition: opacity 1s ease; 
+.cado {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: cyan;
+  text-shadow: 0 0 10px white, 0 0 20px cyan;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 1s ease;
 }
 .hidden { display: none; }
 
@@ -172,29 +179,34 @@ function launchSequence() {
   const dog = document.querySelector('.dog');
   const cado = document.querySelector('.cado');
 
+  // Начальная позиция
   rocket.style.bottom = '5%';
   cat.style.transform = 'translateX(-200px)';
   dog.style.transform = 'translateX(200px)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
+  // Взлёт ракеты и движение кота/собаки
   setTimeout(() => {
     rocket.style.bottom = '120%';
     cat.style.transform = 'translateX(0)';
     dog.style.transform = 'translateX(0)';
   }, 100);
 
+  // Появление надписи CADO
   setTimeout(() => {
     cado.classList.remove('hidden');
     cado.style.opacity = 1;
   }, 3000);
 
+  // Возврат кота и собаки назад
   setTimeout(() => {
     cat.style.transform = 'translateX(-200px)';
     dog.style.transform = 'translateX(200px)';
     cado.style.opacity = 0;
   }, 5500);
 
+  // Повтор цикла
   setTimeout(launchSequence, 8000);
 }
 
