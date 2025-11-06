@@ -25,16 +25,19 @@
   height: 100%;
   pointer-events: none;
 }
-.stars { 
-  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat; 
-  opacity: 0.7; 
+.stars {
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  opacity: 0.7;
 }
-.falling-stars { 
-  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat; 
-  animation: fallingStars 4s linear infinite; 
-  opacity: 0.5; 
+.falling-stars {
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+  animation: fallingStars 6s linear infinite;
+  opacity: 0.5;
 }
-@keyframes fallingStars { from { background-position:0 0; } to { background-position:0 1000px; } }
+@keyframes fallingStars { 
+  from { background-position: 0 0; } 
+  to { background-position: 0 1000px; } 
+}
 
 /* Надпись сверху */
 .launch-title {
@@ -64,29 +67,10 @@
   z-index: 1;
   animation: pulse 3s infinite alternate;
 }
-@keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6;} 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9;} }
-
-/* Планеты */
-.planets {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  z-index: 1;
+@keyframes pulse { 
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6;} 
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9;} 
 }
-.planet {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.8;
-}
-.planet1 { width:50px; height:50px; background: radial-gradient(circle,#ff6600,#cc3300); transform-origin:120px 0; animation: orbit1 20s linear infinite; }
-.planet2 { width:35px; height:35px; background: radial-gradient(circle,#33ccff,#0066cc); transform-origin:180px 0; animation: orbit2 25s linear infinite; }
-.planet3 { width:70px; height:70px; background: radial-gradient(circle,#ccff33,#669900); transform-origin:250px 0; animation: orbit3 30s linear infinite; }
-
-@keyframes orbit1 {0%{transform:rotate(0deg) translateX(120px) rotate(0deg);}100%{transform:rotate(360deg) translateX(120px) rotate(-360deg);}}
-@keyframes orbit2 {0%{transform:rotate(0deg) translateX(180px) rotate(0deg);}100%{transform:rotate(360deg) translateX(180px) rotate(-360deg);}}
-@keyframes orbit3 {0%{transform:rotate(0deg) translateX(250px) rotate(0deg);}100%{transform:rotate(360deg) translateX(250px) rotate(-360deg);}}
 
 /* Ракета */
 .rocket {
@@ -96,39 +80,62 @@
   transform: translateX(-50%);
   z-index: 3;
   width: 100px;
-  transition: bottom 5s ease-out, transform 5s ease-out; /* плавный взлёт */
+  transition: bottom 5s ease-out;
 }
 .rocket img { width: 100%; height: auto; }
 .flame {
   position: absolute;
-  bottom:-20px;
+  bottom:-25px;
   left:50%;
   transform:translateX(-50%);
   width:20px;
-  height:50px;
+  height:60px;
   background: radial-gradient(ellipse at center, orange 0%, yellow 50%, transparent 80%);
   filter: blur(4px);
   opacity:0.8;
   animation: flame 0.3s infinite alternate;
 }
-@keyframes flame { 0% { height:45px; opacity:0.7;} 100%{height:60px; opacity:1;} }
+@keyframes flame { 
+  0% { height:45px; opacity:0.7;} 
+  100%{height:60px; opacity:1;} 
+}
 
 /* Кот и собака */
 #animals {
-  position:absolute;
-  bottom:5%;
-  width:100%;
-  text-align:center;
-  z-index:4;
-  height:120px;
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
+  text-align: center;
+  z-index: 4;
+  height: 120px;
 }
-.animal { display:inline-block; font-size:3rem; margin:0 20px; position:relative; bottom:0; transition: transform 5s ease-in-out; }
-.cat { transform:translateX(-100px); }
-.dog { transform:translateX(100px); }
+.animal {
+  display: inline-block;
+  font-size: 3rem;
+  margin: 0 20px;
+  position: relative;
+  bottom: 0;
+  transition: transform 2s ease-in-out;
+}
+.cat { transform: translateX(-150px); }
+.dog { transform: translateX(150px); }
 
 /* CADO */
-.cado { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:2.5rem; font-weight:bold; color:cyan; text-shadow:0 0 10px white,0 0 20px cyan; opacity:0; z-index:5; transition: opacity 1s ease; }
-.hidden { display:none; }
+.cado { 
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  font-size: 2.5rem; 
+  font-weight: bold; 
+  color: cyan; 
+  text-shadow: 0 0 10px white, 0 0 20px cyan; 
+  opacity: 0; 
+  z-index: 5; 
+  transition: opacity 1s ease; 
+}
+.hidden { display: none; }
+
 </style>
 </head>
 <body>
@@ -141,13 +148,8 @@
   <!-- Надпись сверху -->
   <h1 class="launch-title">🚀 Launching<br>in 2026</h1>
 
-  <!-- Центральная мини-солнечная система -->
+  <!-- Центральный свет -->
   <div class="center-glow"></div>
-  <div class="planets">
-    <div class="planet planet1"></div>
-    <div class="planet planet2"></div>
-    <div class="planet planet3"></div>
-  </div>
 
   <!-- Ракета -->
   <div class="rocket">
@@ -155,7 +157,7 @@
     <div class="flame"></div>
   </div>
 
-  <!-- Кот и собака -->
+  <!-- Кот, собака и CADO -->
   <div id="animals">
     <div class="animal cat">🐱</div>
     <div class="animal dog">🐶</div>
@@ -170,30 +172,35 @@ function launchSequence() {
   const dog = document.querySelector('.dog');
   const cado = document.querySelector('.cado');
 
-  // Сброс позиций
+  // Сброс в начальную позицию
   rocket.style.bottom = '5%';
-  rocket.style.transform = 'translateX(-50%)';
-  cat.style.transform = 'translateX(-100px)';
-  dog.style.transform = 'translateX(100px)';
+  cat.style.transform = 'translateX(-150px)';
+  dog.style.transform = 'translateX(150px)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
-  // Запуск анимаций через 0.1s
+  // Старт
   setTimeout(() => {
-    rocket.style.bottom='120%';       // взлёт ракеты
-    rocket.style.transform='translateX(-50%) rotate(0deg)';
-    cat.style.transform='translateX(0)';  // кот идёт к центру
-    dog.style.transform='translateX(0)';  // собака идёт к центру
-  },100);
+    rocket.style.bottom = '120%';       // взлёт ракеты
+    cat.style.transform = 'translateX(0)';  // кот в центр
+    dog.style.transform = 'translateX(0)';  // собака в центр
+  }, 100);
 
-  // Появление CADO через 5.1 секунд
+  // Появление CADO
   setTimeout(() => {
     cado.classList.remove('hidden');
     cado.style.opacity = 1;
-  },5100);
+  }, 3000);
 
-  // Повтор цикла через 10 секунд
-  setTimeout(launchSequence,10000);
+  // Возвращение кота и собаки назад
+  setTimeout(() => {
+    cat.style.transform = 'translateX(-150px)';
+    dog.style.transform = 'translateX(150px)';
+    cado.style.opacity = 0;
+  }, 5500);
+
+  // Повтор цикла
+  setTimeout(launchSequence, 8000);
 }
 
 window.addEventListener('load', launchSequence);
