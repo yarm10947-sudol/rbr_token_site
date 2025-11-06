@@ -117,8 +117,8 @@
   bottom: 0;
   transition: transform 2s ease-in-out;
 }
-.cat { transform: translateX(-150px); }
-.dog { transform: translateX(150px); }
+.cat { transform: translateX(-200px); }
+.dog { transform: translateX(200px); }
 
 /* CADO */
 .cado { 
@@ -159,8 +159,8 @@
 
   <!-- Кот, собака и CADO -->
   <div id="animals">
-    <img src="8211e44c96b8de4042fc9bf94a341cd6_high.webp" alt="Cat" class="animal cat">
-    <img src="0563649e52520b835b2b7780b981eeb2_high.webp" alt="Dog" class="animal dog">
+    <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" alt="Cat" class="animal cat">
+    <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" alt="Dog" class="animal dog">
     <div class="cado hidden">CADO</div>
   </div>
 </section>
@@ -173,8 +173,8 @@ function launchSequence() {
   const cado = document.querySelector('.cado');
 
   rocket.style.bottom = '5%';
-  cat.style.transform = 'translateX(-150px)';
-  dog.style.transform = 'translateX(150px)';
+  cat.style.transform = 'translateX(-200px)';
+  dog.style.transform = 'translateX(200px)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
@@ -190,8 +190,8 @@ function launchSequence() {
   }, 3000);
 
   setTimeout(() => {
-    cat.style.transform = 'translateX(-150px)';
-    dog.style.transform = 'translateX(150px)';
+    cat.style.transform = 'translateX(-200px)';
+    dog.style.transform = 'translateX(200px)';
     cado.style.opacity = 0;
   }, 5500);
 
