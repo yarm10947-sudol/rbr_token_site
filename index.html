@@ -102,12 +102,12 @@ body, html {
 /* Кот и собака */
 #animals {
   position: absolute;
-  bottom: 15%; /* Повысил чуть выше надписи CADO */
+  bottom: 15%; /* чуть выше надписи CADO */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 120px;
+  gap: 60px; /* ближе друг к другу */
   z-index: 4;
 }
 
@@ -118,11 +118,11 @@ body, html {
 }
 
 .cat {
-  transform: translateX(-200px);
+  transform: translateX(-250px); /* старт далеко слева */
 }
 
 .dog {
-  transform: translateX(200px);
+  transform: translateX(250px); /* старт далеко справа */
 }
 
 /* CADO под картинками */
@@ -140,6 +140,7 @@ body, html {
   transition: opacity 1s ease;
 }
 .hidden { display: none; }
+
 </style>
 </head>
 <body>
@@ -161,7 +162,7 @@ body, html {
     <div class="flame"></div>
   </div>
 
-  <!-- Кот, собака и CADO -->
+  <!-- Кот и собака -->
   <div id="animals">
     <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" alt="Cat" class="animal cat">
     <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" alt="Dog" class="animal dog">
@@ -180,16 +181,16 @@ function launchSequence() {
 
   // Начальная позиция
   rocket.style.bottom = '5%';
-  cat.style.transform = 'translateX(-200px)';
-  dog.style.transform = 'translateX(200px)';
+  cat.style.transform = 'translateX(-250px)';
+  dog.style.transform = 'translateX(250px)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
   // Взлёт ракеты и движение кота/собаки
   setTimeout(() => {
     rocket.style.bottom = '120%';
-    cat.style.transform = 'translateX(0)';
-    dog.style.transform = 'translateX(0)';
+    cat.style.transform = 'translateX(-40px)'; // сближение
+    dog.style.transform = 'translateX(40px)';  // сближение
   }, 100);
 
   // Появление надписи CADO под картинками
@@ -200,8 +201,8 @@ function launchSequence() {
 
   // Возврат кота и собаки назад
   setTimeout(() => {
-    cat.style.transform = 'translateX(-200px)';
-    dog.style.transform = 'translateX(200px)';
+    cat.style.transform = 'translateX(-250px)';
+    dog.style.transform = 'translateX(250px)';
     cado.style.opacity = 0;
   }, 5500);
 
