@@ -1,205 +1,202 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Red Blue Rabbit (RBR)</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');body {
-  margin: 0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launching CADO 2026</title>
+
+<style>
+/* Основной контейнер */
+#launch-2026 {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(#000, #02010a, #090022);
+  overflow: hidden;
   font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(270deg, #4da6ff, #F7931A, #ff0000);
-  background-size: 600% 600%;
-  animation: bgFlow 30s ease infinite;
-  color: #fff;
+  color: white;
   text-align: center;
 }
 
-@keyframes bgFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Звёзды */
+.stars, .falling-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.stars { 
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat; 
+  opacity: 0.7; 
+}
+.falling-stars { 
+  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat; 
+  animation: fallingStars 4s linear infinite; 
+  opacity: 0.5; 
+}
+@keyframes fallingStars { from { background-position:0 0; } to { background-position:0 1000px; } }
+
+/* Надпись сверху */
+.launch-title {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.2rem;
+  max-width: 90%;
+  line-height: 1.2;
+  white-space: normal;
+  text-shadow: 0 0 15px white, 0 0 30px cyan;
+  z-index: 5;
 }
 
-@keyframes fadeInUp {
-  from {opacity: 0; transform: translateY(40px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-header, .section, footer {
-  opacity: 0;
-  animation: fadeInUp 1.5s ease forwards;
-}
-
-header { animation-delay: 0.3s; }
-.section:nth-of-type(1) { animation-delay: 0.8s; }
-.section:nth-of-type(2) { animation-delay: 1.3s; }
-.section:nth-of-type(3) { animation-delay: 1.8s; }
-footer { animation-delay: 2.3s; }
-
-header {
-  padding: 50px 20px;
-}
-
-header img {
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
+/* Центральный свет */
+.center-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(0,255,255,0.2), transparent 70%);
   border-radius: 50%;
-  border: 4px solid white;
-  animation: logoCycle 12s infinite;
+  filter: blur(30px);
+  z-index: 1;
+  animation: pulse 3s infinite alternate;
 }
+@keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6;} 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.9;} }
 
-@keyframes logoCycle {
-  0% { box-shadow: 0 0 20px #F7931A; border-color: #F7931A; }
-  33% { box-shadow: 0 0 25px #ff0000; border-color: #ff0000; }
-  66% { box-shadow: 0 0 25px #4da6ff; border-color: #4da6ff; }
-  100% { box-shadow: 0 0 20px #F7931A; border-color: #F7931A; }
+/* Планеты */
+.planets {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 1;
 }
-
-h1 {
-  font-size: 42px;
-  margin: 15px 0 5px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.7);
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
 }
+.planet1 { width:50px; height:50px; background: radial-gradient(circle,#ff6600,#cc3300); transform-origin:120px 0; animation: orbit1 20s linear infinite; }
+.planet2 { width:35px; height:35px; background: radial-gradient(circle,#33ccff,#0066cc); transform-origin:180px 0; animation: orbit2 25s linear infinite; }
+.planet3 { width:70px; height:70px; background: radial-gradient(circle,#ccff33,#669900); transform-origin:250px 0; animation: orbit3 30s linear infinite; }
 
-p {
-  font-size: 18px;
-  max-width: 650px;
-  margin: 0 auto;
+@keyframes orbit1 {0%{transform:rotate(0deg) translateX(120px) rotate(0deg);}100%{transform:rotate(360deg) translateX(120px) rotate(-360deg);}}
+@keyframes orbit2 {0%{transform:rotate(0deg) translateX(180px) rotate(0deg);}100%{transform:rotate(360deg) translateX(180px) rotate(-360deg);}}
+@keyframes orbit3 {0%{transform:rotate(0deg) translateX(250px) rotate(0deg);}100%{transform:rotate(360deg) translateX(250px) rotate(-360deg);}}
+
+/* Ракета */
+.rocket {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 100px;
 }
-
-.btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 14px 30px;
-  background: #fff;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
-  border-radius: 8px;
-  transition: 0.3s;
-  opacity: 0;
-  animation: fadeInUp 1.5s ease forwards;
-  animation-delay: 1s;
+.rocket img { width: 100%; height: auto; }
+.flame {
+  position: absolute;
+  bottom:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:20px;
+  height:50px;
+  background: radial-gradient(ellipse at center, orange 0%, yellow 50%, transparent 80%);
+  filter: blur(4px);
+  opacity:0.8;
+  animation: flame 0.3s infinite alternate;
 }
+@keyframes flame { 0% { height:45px; opacity:0.7;} 100%{height:60px; opacity:1;} }
 
-.btn:hover {
-  background: #f0f0f0;
-  transform: scale(1.05);
+/* Кот и собака */
+#animals {
+  position:absolute;
+  bottom:5%;
+  width:100%;
+  text-align:center;
+  z-index:4;
+  height:120px;
 }
+.animal { display:inline-block; font-size:3rem; margin:0 20px; position:relative; bottom:0; }
+.cat { transform:translateX(-100px); transition: transform 5s ease-in-out; }
+.dog { transform:translateX(100px); transition: transform 5s ease-in-out; }
 
-.social-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.social-buttons a {
-  padding: 12px 25px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 8px;
-  text-decoration: none;
-  color: white;
-  animation: fadeInUp 1.5s ease forwards;
-  transition: transform 0.3s;
-}
-
-.social-buttons a:hover {
-  transform: scale(1.1);
-}
-
-.youtube-btn { background: #ff0000; animation-delay: 1.2s; }
-.twitter-btn { background: #1DA1F2; animation-delay: 1.4s; }
-.telegram-btn { background: #0088cc; animation-delay: 1.6s; }
-
-.section {
-  padding: 60px 20px;
-}
-
-.card {
-  background: rgba(0,0,0,0.4);
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 700px;
-  margin: auto;
-  box-shadow: 0 0 25px rgba(255,255,255,0.3);
-}
-
-.card h2 {
-  background: rgba(255,0,0,0.8);
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 8px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.8);
-}
-
-.roadmap {
-  background: rgba(255,255,255,0.1);
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 700px;
-  margin: auto;
-  box-shadow: 0 0 20px rgba(255,255,255,0.4);
-}
-
-.roadmap ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-}
-
-.roadmap li {
-  font-size: 20px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-}
-
-footer {
-  padding: 25px;
-  background: rgba(0,0,0,0.6);
-  font-size: 14px;
-}
-
-footer p {
-  margin: 5px 0;
-  word-break: break-all;
-}
-
-  </style>
+/* CADO */
+.cado { position:absolute; bottom:50px; left:50%; transform:translateX(-50%); font-size:2.5rem; font-weight:bold; color:cyan; text-shadow:0 0 10px white,0 0 20px cyan; opacity:0; z-index:5; transition: opacity 1s ease; }
+.hidden { display:none; }
+</style>
 </head>
 <body>
-  <header>
-    <img src="IMG_20250723_204527.jpg" alt="RBR Logo" />
-    <h1>Red Blue Rabbit (RBR)</h1>
-    <p>The ultimate meme coin on Solana blockchain – Join the Rabbit Army and hop to the moon!</p>
-    <a class="btn" href="https://pump.fun/CwxXWCJaCAuEWviKQbm3ojCcZ5icMywSuN1koCDgZ2dz" target="_blank">🚀 Buy on Pump.fun</a><div class="social-buttons">
-  <a href="https://youtube.com/@rbr---redbluerabbit" target="_blank" class="youtube-btn">▶ Subscribe YouTube</a>
-  <a href="https://x.com/rabbit_red_blue" target="_blank" class="twitter-btn">✖ Follow on X</a>
-  <a href="https://t.me/RBR_REDBLUERABBIT" target="_blank" class="telegram-btn">✈ Join Telegram</a>
-</div>
 
-  </header>  <div class="section">
-    <div class="card">
-      <h2>🐇 About RBR</h2>
-      <p>Red Blue Rabbit is a community-driven meme token combining fun, art and crypto innovation. Be part of the RBR family and enjoy the ride to the moon! 🚀</p>
-    </div>
-  </div>  <div class="section roadmap">
-    <h2>📜 Roadmap</h2>
-    <ul>
-      <li>✅ Launch on Pump.fun</li>
-      <li>✅ Grow Telegram & Twitter community</li>
-      <li>🚀 Listing on trackers & marketing push</li>
-      <li>🌕 Partnerships and big campaigns</li>
-    </ul>
-  </div>  <footer>
-    <p><b>Contract Address:</b></p>
-    <p>CwxXWCJaCAuEWviKQbm3ojCcZ5icMywSuN1koCDgZ2dz</p>
-    <p>© 2025 Red Blue Rabbit</p>
-  </footer>
+<section id="launch-2026">
+  <!-- Звёздный фон -->
+  <div class="stars"></div>
+  <div class="falling-stars"></div>
+
+  <!-- Надпись сверху -->
+  <h1 class="launch-title">🚀 Launching<br>in 2026</h1>
+
+  <!-- Центральная мини-солнечная система -->
+  <div class="center-glow"></div>
+  <div class="planets">
+    <div class="planet planet1"></div>
+    <div class="planet planet2"></div>
+    <div class="planet planet3"></div>
+  </div>
+
+  <!-- Ракета -->
+  <div class="rocket">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Rocket_icon.svg" alt="Rocket Launch">
+    <div class="flame"></div>
+  </div>
+
+  <!-- Кот и собака -->
+  <div id="animals">
+    <div class="animal cat">🐱</div>
+    <div class="animal dog">🐶</div>
+    <div class="cado hidden">CADO</div>
+  </div>
+</section>
+
+<script>
+function launchSequence() {
+  const rocket = document.querySelector('.rocket');
+  const cat = document.querySelector('.cat');
+  const dog = document.querySelector('.dog');
+  const cado = document.querySelector('.cado');
+
+  // Сброс позиций
+  rocket.style.bottom = '5%';
+  rocket.style.transform = 'translateX(-50%)';
+  cat.style.transform = 'translateX(-100px)';
+  dog.style.transform = 'translateX(100px)';
+  cado.style.opacity = 0;
+  cado.classList.add('hidden');
+
+  // Запуск анимаций
+  setTimeout(()=>{
+    rocket.style.bottom='120%';
+    rocket.style.transform='translateX(-50%) rotate(0deg)';
+    cat.style.transform='translateX(0)';
+    dog.style.transform='translateX(0)';
+  },100);
+
+  // Появление CADO через 5 секунд
+  setTimeout(()=>{
+    cado.classList.remove('hidden');
+    cado.style.opacity = 1;
+  },5100);
+
+  // Повтор цикла через 10 секунд
+  setTimeout(launchSequence,10000);
+}
+
+window.addEventListener('load', launchSequence);
+</script>
+
 </body>
 </html>
