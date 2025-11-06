@@ -42,7 +42,7 @@
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2.2rem;
+  font-size: 2rem;
   max-width: 90%;
   line-height: 1.2;
   white-space: normal;
@@ -96,6 +96,7 @@
   transform: translateX(-50%);
   z-index: 3;
   width: 100px;
+  transition: bottom 5s ease-out, transform 5s ease-out; /* Плавный взлёт */
 }
 .rocket img { width: 100%; height: auto; }
 .flame {
@@ -179,7 +180,7 @@ function launchSequence() {
 
   // Запуск анимаций
   setTimeout(()=>{
-    rocket.style.bottom='120%';
+    rocket.style.bottom='120%';   // Плавный взлёт
     rocket.style.transform='translateX(-50%) rotate(0deg)';
     cat.style.transform='translateX(0)';
     dog.style.transform='translateX(0)';
