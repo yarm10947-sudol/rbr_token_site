@@ -1,11 +1,10 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Launching CADO 2026</title>
 <style>
-/* Основной контейнер */
 body, html {
   margin: 0;
   padding: 0;
@@ -48,7 +47,6 @@ body, html {
   font-size: 2rem;
   max-width: 90%;
   line-height: 1.2;
-  white-space: normal;
   text-shadow: 0 0 15px white, 0 0 30px cyan;
   z-index: 5;
   text-align: center;
@@ -104,7 +102,7 @@ body, html {
 /* Кот и собака */
 #animals {
   position: absolute;
-  bottom: 10%;
+  bottom: 15%; /* Повысил чуть выше надписи CADO */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -127,10 +125,10 @@ body, html {
   transform: translateX(200px);
 }
 
-/* CADO */
+/* CADO под картинками */
 .cado {
   position: absolute;
-  bottom: 5%;
+  bottom: 5%; /* под картинками */
   left: 50%;
   transform: translateX(-50%);
   font-size: 2.5rem;
@@ -142,7 +140,6 @@ body, html {
   transition: opacity 1s ease;
 }
 .hidden { display: none; }
-
 </style>
 </head>
 <body>
@@ -168,8 +165,10 @@ body, html {
   <div id="animals">
     <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" alt="Cat" class="animal cat">
     <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" alt="Dog" class="animal dog">
-    <div class="cado hidden">CADO</div>
   </div>
+
+  <!-- CADO -->
+  <div class="cado hidden">CADO</div>
 </section>
 
 <script>
@@ -193,7 +192,7 @@ function launchSequence() {
     dog.style.transform = 'translateX(0)';
   }, 100);
 
-  // Появление надписи CADO
+  // Появление надписи CADO под картинками
   setTimeout(() => {
     cado.classList.remove('hidden');
     cado.style.opacity = 1;
