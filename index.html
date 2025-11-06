@@ -20,10 +20,10 @@
       position: relative;
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle at center, #0d1b2a, #000);
+      background: url('https://i.imgur.com/Yr7zWcO.jpeg') no-repeat center/cover;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
     .character {
@@ -34,14 +34,14 @@
     }
 
     .cat {
-      left: 60px;
-      background: url('https://i.imgur.com/TDxp6hJ.png') no-repeat center/contain;
+      left: 40px;
+      background: url('https://i.imgur.com/cat.png') no-repeat center/contain;
       height: 80px;
     }
 
     .dog {
-      right: 60px;
-      background: url('https://i.imgur.com/L5Joqno.png') no-repeat center/contain;
+      right: 40px;
+      background: url('https://i.imgur.com/dog.png') no-repeat center/contain;
       height: 80px;
       animation-delay: .3s;
     }
@@ -53,13 +53,13 @@
 
     .meteor {
       position: absolute;
-      top: -150px;
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
       width: 60px;
       height: 60px;
-      background: url('https://i.imgur.com/yLapZgD.png') no-repeat center/contain;
-      animation: fall 2.5s ease-in forwards;
+      background: url('https://i.imgur.com/meteor.png') no-repeat center/contain;
+      animation: fall 2s ease-in forwards;
     }
 
     @keyframes fall {
@@ -73,23 +73,23 @@
       position: absolute;
       top: 250px;
       left: 50%;
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       transform: translateX(-50%);
-      background: url('https://i.imgur.com/h1RIltc.gif') no-repeat center/contain;
+      background: url('https://i.imgur.com/explosion.gif') no-repeat center/contain;
       display: none;
     }
 
     .text {
       position: absolute;
       width: 100%;
-      top: 55%;
+      top: 50%;
       text-align: center;
-      font-size: 26px;
-      color: #ffcc00;
+      font-size: 24px;
+      color: white;
       font-weight: bold;
       letter-spacing: 2px;
-      text-shadow: 0 0 15px #ff8800;
+      text-shadow: 0 0 10px #ffcc00;
       opacity: 0;
       transition: opacity 1s ease;
     }
