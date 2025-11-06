@@ -84,14 +84,14 @@ body, html {
 .rocket img { width: 100%; height: auto; }
 .flame {
   position: absolute;
-  bottom: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 60px;
+  bottom:-25px;
+  left:50%;
+  transform:translateX(-50%);
+  width:20px;
+  height:60px;
   background: radial-gradient(ellipse at center, orange 0%, yellow 50%, transparent 80%);
   filter: blur(4px);
-  opacity: 0.8;
+  opacity:0.8;
   animation: flame 0.3s infinite alternate;
 }
 @keyframes flame {
@@ -102,12 +102,12 @@ body, html {
 /* Кот и собака */
 #animals {
   position: absolute;
-  bottom: 15%; /* чуть выше надписи CADO */
+  bottom: 15%; /* чуть выше CADO */
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 60px; /* ближе друг к другу */
+  gap: 20px; /* расстояние между ними */
   z-index: 4;
 }
 
@@ -115,14 +115,7 @@ body, html {
   width: 100px;
   height: auto;
   transition: transform 2.5s ease-in-out;
-}
-
-.cat {
-  transform: translateX(-250px); /* старт далеко слева */
-}
-
-.dog {
-  transform: translateX(250px); /* старт далеко справа */
+  position: relative;
 }
 
 /* CADO под картинками */
@@ -140,7 +133,6 @@ body, html {
   transition: opacity 1s ease;
 }
 .hidden { display: none; }
-
 </style>
 </head>
 <body>
@@ -179,34 +171,34 @@ function launchSequence() {
   const dog = document.querySelector('.dog');
   const cado = document.querySelector('.cado');
 
-  // Начальная позиция
+  // начальная позиция
   rocket.style.bottom = '5%';
-  cat.style.transform = 'translateX(-250px)';
-  dog.style.transform = 'translateX(250px)';
+  cat.style.transform = 'translateX(-200px)';
+  dog.style.transform = 'translateX(200px)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
-  // Взлёт ракеты и движение кота/собаки
+  // взлёт ракеты и сближение кота/собаки
   setTimeout(() => {
     rocket.style.bottom = '120%';
-    cat.style.transform = 'translateX(-40px)'; // сближение
-    dog.style.transform = 'translateX(40px)';  // сближение
+    cat.style.transform = 'translateX(-20px)'; // ближе к центру
+    dog.style.transform = 'translateX(20px)'; // ближе к центру
   }, 100);
 
-  // Появление надписи CADO под картинками
+  // появление надписи CADO
   setTimeout(() => {
     cado.classList.remove('hidden');
     cado.style.opacity = 1;
   }, 3000);
 
-  // Возврат кота и собаки назад
+  // возврат кота и собаки назад
   setTimeout(() => {
-    cat.style.transform = 'translateX(-250px)';
-    dog.style.transform = 'translateX(250px)';
+    cat.style.transform = 'translateX(-200px)';
+    dog.style.transform = 'translateX(200px)';
     cado.style.opacity = 0;
   }, 5500);
 
-  // Повтор цикла
+  // повтор цикла
   setTimeout(launchSequence, 8000);
 }
 
