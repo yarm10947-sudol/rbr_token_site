@@ -15,7 +15,7 @@ body, html {
   color: white;
 }
 
-/* Звёзды */
+/* Фон звёзд */
 .stars, .falling-stars {
   position: absolute;
   width: 100%;
@@ -45,14 +45,12 @@ body, html {
   left: 50%;
   transform: translateX(-50%);
   font-size: 2rem;
-  max-width: 90%;
-  line-height: 1.2;
   text-shadow: 0 0 15px white, 0 0 30px cyan;
   z-index: 5;
   text-align: center;
 }
 
-/* Видео */
+/* Видео в центре */
 .center-video {
   position: absolute;
   top: 50%;
@@ -104,19 +102,22 @@ body, html {
   position: absolute;
   bottom: 15%;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 120px;
+  height: 150px;
   z-index: 4;
-  overflow: hidden;
 }
 
 .animal {
+  position: absolute;
+  bottom: 0;
   width: 120px;
-  height: auto;
   transition: transform 2.5s ease-in-out;
-  position: relative;
+}
+
+.cat {
+  left: 30%; /* стартовая позиция кота */
+}
+.dog {
+  right: 30%; /* стартовая позиция собаки */
 }
 
 /* Надпись CADO */
@@ -139,31 +140,25 @@ body, html {
 <body>
 
 <section id="launch-2026">
-  <!-- Звёзды -->
   <div class="stars"></div>
   <div class="falling-stars"></div>
 
-  <!-- Текст -->
   <h1 class="launch-title">Launching<br>in 2026</h1>
 
-  <!-- Видео -->
   <video class="center-video" autoplay muted loop>
     <source src="VID_20251108_040131.mp4" type="video/mp4">
   </video>
 
-  <!-- Ракета -->
   <div class="rocket">
     <img src="7172284.png" alt="Rocket Launch">
     <div class="flame"></div>
   </div>
 
-  <!-- Кот и собака -->
   <div id="animals">
     <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" alt="Cat" class="animal cat">
     <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" alt="Dog" class="animal dog">
   </div>
 
-  <!-- CADO -->
   <div class="cado hidden">CADO</div>
 </section>
 
@@ -176,32 +171,31 @@ function launchSequence() {
 
   // начальные позиции
   rocket.style.bottom = '5%';
-  cat.style.transform = 'translateX(-120px)';
-  dog.style.transform = 'translateX(120px)';
+  cat.style.transform = 'translateX(0)';
+  dog.style.transform = 'translateX(0)';
   cado.style.opacity = 0;
   cado.classList.add('hidden');
 
-  // взлёт ракеты и сближение кота/собаки
+  // взлёт и сближение
   setTimeout(() => {
     rocket.style.bottom = '120%';
-    cat.style.transform = 'translateX(-5px)'; // ближе, но не выходит
-    dog.style.transform = 'translateX(5px)';  // ближе, но не выходит
+    cat.style.transform = 'translateX(80px)';  // кот идёт к центру
+    dog.style.transform = 'translateX(-80px)'; // собака идёт к центру
   }, 100);
 
-  // появление надписи CADO
+  // появление CADO
   setTimeout(() => {
     cado.classList.remove('hidden');
     cado.style.opacity = 1;
   }, 3000);
 
-  // возвращаются обратно
+  // возвращаются на места
   setTimeout(() => {
-    cat.style.transform = 'translateX(-120px)';
-    dog.style.transform = 'translateX(120px)';
+    cat.style.transform = 'translateX(0)';
+    dog.style.transform = 'translateX(0)';
     cado.style.opacity = 0;
   }, 5500);
 
-  // повтор цикла
   setTimeout(launchSequence, 8000);
 }
 
