@@ -1,206 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Launching CADO 2026</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CADO — Lava fill demo</title>
 <style>
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  font-family: 'Orbitron', sans-serif;
-  background: radial-gradient(#000, #02010a, #090022);
-  color: white;
-}
+:root{ --video-w:360px; --video-h:202px; --cycle:60s; --fill-duration:32s; --start-delay:2s; }
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;background:#050006;color:#fff}
+#launch-2026{position:relative;width:100%;height:100vh;overflow:hidden}
+.center-video{position:absolute;left:50%;top:10%;transform:translateX(-50%);width:var(--video-w);height:var(--video-h);object-fit:cover;border-radius:12px;z-index:10;box-shadow:0 10px 40px rgba(0,0,0,0.7),0 0 40px rgba(255,80,30,0.15)}
+/* animals block directly under video */
+#animals{position:absolute;left:50%;top:calc(10% + var(--video-h) + 10px);transform:translateX(-50%);width:calc(var(--video-w) + 160px);height:120px;z-index:12;pointer-events:none}
+.animal{position:absolute;bottom:0;width:110px;height:auto;transition:transform 2.5s ease-in-out}
+.cat{left:0;}
+.dog{right:0}
+/* animals animation: move toward center to 45% area then back */
+@keyframes animal-move-cat{0%{transform:translateX(0)}50%{transform:translateX(calc(0.45 * (100vw - var(--video-w))))}100%{transform:translateX(0)}}
+@keyframes animal-move-dog{0%{transform:translateX(0)}50%{transform:translateX(calc(-0.45 * (100vw - var(--video-w))))}100%{transform:translateX(0)}}
+.cat.animate{animation:animal-move-cat 6s ease-in-out infinite}
+.dog.animate{animation:animal-move-dog 6s ease-in-out infinite}/* lava stream - thin core that visually comes from under the video / .lava-container{position:absolute;left:50%;top:calc(10% + var(--video-h));transform:translateX(-50%);width:30px;height:calc(100vh - (10% + var(--video-h)) - 160px);/ area until above text /z-index:11;pointer-events:none} .lava-core{position:absolute;left:50%;transform:translateX(-50%);width:8px;border-radius:999px;background:linear-gradient(to bottom,#fff2a0,#ffb347,#ff6600,#cc2200);box-shadow:0 0 18px rgba(255,120,0,0.9),0 0 36px rgba(255,80,0,0.4);} / core drops animation (subtle) */ .lava-core.pulse{animation:corePulse 1.2s ease-in-out infinite} @keyframes corePulse{0%{height:20px;opacity:0.9}50%{height:34px;opacity:1}100%{height:20px;opacity:0.9}}
 
-/* Фон звёзд */
-.stars, .falling-stars {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-}
-.stars {
-  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-  opacity: 0.7;
-}
-.falling-stars {
-  background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-  animation: fallingStars 6s linear infinite;
-  opacity: 0.5;
-}
-@keyframes fallingStars {
-  from { background-position: 0 0; }
-  to { background-position: 0 1000px; }
-}
+/* text area: placed under animals / .cado-wrap{position:absolute;left:50%;top:calc(10% + var(--video-h) + 140px);transform:translateX(-50%);width:520px;max-width:90vw;height:120px;display:flex;align-items:center;justify-content:center;z-index:9} / SVG text used as mask so lava rect can fill it / .cado-svg{width:100%;height:100%} / glass-like base text (stroke + subtle refraction) / .cado-base text{fill:rgba(255,255,255,0.06);stroke:rgba(255,255,255,0.18);stroke-width:2;filter: drop-shadow(0 -2px 8px rgba(255,255,255,0.04));} / lava fill rect (we will animate translateY from 100% to 0) / .cado-fill-rect{fill:url(#lavaGrad);transform:translateY(100%);transform-origin:0 0;transition:transform var(--fill-duration) linear} / when filling active */ .fill-active .cado-fill-rect{transform:translateY(0)}
 
-/* Заголовок */
-.launch-title {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  text-shadow: 0 0 15px white, 0 0 30px cyan;
-  z-index: 5;
-  text-align: center;
-}
+/* cooled overlay (adamant color) / .cooled .cado-base text{fill:#9feef0;stroke:#cdeff3;stroke-width:1;filter:drop-shadow(0 0 18px rgba(160,230,240,0.15))} / smoke */ .smoke{position:absolute;left:50%;top:calc(10% + var(--video-h) + 120px);transform:translateX(-50%);width:420px;height:80px;z-index:13;pointer-events:none;opacity:0} .smoke .p{position:absolute;border-radius:50%;background:rgba(200,200,200,0.35);filter:blur(12px);} .smoke.show{animation:smokeUp 8s ease-out forwards} @keyframes smokeUp{0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-80px) scale(1.3)}}
 
-/* Видео в центре */
-.center-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 320px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0,255,255,0.5);
-  z-index: 2;
-  animation: pulseVideo 4s infinite alternate;
-}
-@keyframes pulseVideo {
-  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-}
+/* controls for hiding lava when filled */ .hide-lava .lava-core{opacity:0;transform:scaleY(0.3);transition:opacity 1s,transform 1s}
 
-/* Ракета */
-.rocket {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  width: 100px;
-  transition: bottom 5s ease-out;
-}
-.rocket img { width: 100%; height: auto; }
-.flame {
-  position: absolute;
-  bottom:-25px;
-  left:50%;
-  transform:translateX(-50%);
-  width:20px;
-  height:60px;
-  background: radial-gradient(ellipse at center, orange 0%, yellow 50%, transparent 80%);
-  filter: blur(4px);
-  opacity:0.8;
-  animation: flame 0.3s infinite alternate;
-}
-@keyframes flame {
-  0% { height:45px; opacity:0.7; }
-  100% { height:60px; opacity:1; }
-}
+/* helper responsive tweaks */ @media(max-width:720px){:root{--video-w:280px;--video-h:160px} .cado-wrap{top:calc(10% + var(--video-h) + 120px);}} </style>
 
-/* Кот и собака */
-#animals {
-  position: absolute;
-  bottom: 15%;
-  width: 100%;
-  height: 150px;
-  z-index: 4;
-}
-
-.animal {
-  position: absolute;
-  bottom: 0;
-  width: 120px;
-  transition: transform 2.5s ease-in-out;
-}
-
-.cat {
-  left: 0%; /* стартовая позиция кота */
-}
-.dog {
-  right: 0%; /* стартовая позиция собаки */
-}
-
-/* Надпись CADO */
-.cado {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: cyan;
-  text-shadow: 0 0 10px white, 0 0 20px cyan;
-  opacity: 0;
-  z-index: 5;
-  transition: opacity 1s ease;
-}
-.hidden { display: none; }
-</style>
 </head>
 <body>
-
 <section id="launch-2026">
-  <div class="stars"></div>
-  <div class="falling-stars"></div>
-
-  <h1 class="launch-title">Launching<br>in 2026</h1>
-
-  <video class="center-video" autoplay muted loop>
+  <video class="center-video" autoplay muted loop playsinline>
     <source src="InShot_20251109_161136016.mp4" type="video/mp4">
-  </video>
+  </video>  <div id="animals">
+    <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" class="animal cat" alt="cat">
+    <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" class="animal dog" alt="dog">
+  </div>  <div class="lava-container">
+    <div class="lava-core pulse" id="lavaCore"></div>
+  </div>  <div class="cado-wrap" id="cadoWrap">
+    <svg class="cado-svg" viewBox="0 0 1000 200" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="lavaGrad" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#fff2a0"/>
+          <stop offset="40%" stop-color="#ffb347"/>
+          <stop offset="70%" stop-color="#ff6600"/>
+          <stop offset="100%" stop-color="#cc2200"/>
+        </linearGradient>
+      </defs><!-- base glass text -->
+  <g class="cado-base">
+    <text x="50%" y="60%" text-anchor="middle" font-family="Orbitron, Inter, sans-serif" font-weight="800" font-size="120">CADO</text>
+  </g>
 
-  <div class="rocket">
-    <img src="7172284.png" alt="Rocket Launch">
-    <div class="flame"></div>
+  <!-- mask with lava rect: rect sits above and translates down (we use transform translateY) -->
+  <g>
+    <mask id="text-mask">
+      <!-- white where text is (mask passes through) -->
+      <text x="50%" y="60%" text-anchor="middle" font-family="Orbitron, Inter, sans-serif" font-weight="800" font-size="120" fill="#fff">CADO</text>
+    </mask>
+
+    <!-- lava rect that will move up to fill the masked text -->
+    <rect class="cado-fill-rect" x="0" y="0" width="100%" height="100%" mask="url(#text-mask)" />
+  </g>
+
+</svg>
+
+  </div>  <div class="smoke" id="smoke">
+    <div class="p" style="left:10%;top:10%;width:40%;height:60%;opacity:0.6"></div>
+    <div class="p" style="left:40%;top:0;width:30%;height:50%;opacity:0.5"></div>
+    <div class="p" style="left:65%;top:6%;width:35%;height:56%;opacity:0.55"></div>
   </div>
+</section><script>
+// Timings (seconds)
+const TOTAL = 60;
+const START_DELAY = 2; // before lava begins filling
+const FILL_DURATION = 32; // how long lava fills text
+const COOL_DELAY = 2; // after fill completes before cooling
+const COOL_DURATION = 6; // cooling + smoke
 
-  <div id="animals">
-    <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" alt="Cat" class="animal cat">
-    <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" alt="Dog" class="animal dog">
-  </div>
+const launch = document.getElementById('launch-2026');
+const lavaCore = document.getElementById('lavaCore');
+const cadoWrap = document.getElementById('cadoWrap');
+const smoke = document.getElementById('smoke');
+const animals = document.querySelectorAll('.animal');
 
-  <div class="cado hidden">CADO</div>
-</section>
-
-<script>
-function launchSequence() {
-  const rocket = document.querySelector('.rocket');
-  const cat = document.querySelector('.cat');
-  const dog = document.querySelector('.dog');
-  const cado = document.querySelector('.cado');
-
-  // начальные позиции
-  rocket.style.bottom = '5%';
-  cat.style.transform = 'translateX(0)';
-  dog.style.transform = 'translateX(0)';
-  cado.style.opacity = 0;
-  cado.classList.add('hidden');
-
-  // взлёт и сближение
-  setTimeout(() => {
-    rocket.style.bottom = '120%';
-    cat.style.transform = 'translateX(80px)';  // кот идёт к центру
-    dog.style.transform = 'translateX(-80px)'; // собака идёт к центру
-  }, 100);
-
-  // появление CADO
-  setTimeout(() => {
-    cado.classList.remove('hidden');
-    cado.style.opacity = 1;
-  }, 3000);
-
-  // возвращаются на места
-  setTimeout(() => {
-    cat.style.transform = 'translateX(0px)';
-    dog.style.transform = 'translateX(0px)';
-    cado.style.opacity = 0;
-  }, 5500);
-
-  setTimeout(launchSequence, 8000);
+function resetState(){
+  // reset classes
+  launch.classList.remove('fill-active','hide-lava','cooled');
+  lavaCore.classList.add('pulse');
+  // reset fill rect transform by forcing reflow
+  const rect = cadoWrap.querySelector('.cado-fill-rect');
+  rect.style.transition = 'none';
+  rect.style.transform = 'translateY(100%)';
+  void rect.offsetWidth;
+  rect.style.transition = `transform ${FILL_DURATION}s linear ${START_DELAY}s`;
+  // hide smoke
+  smoke.style.opacity = 0;
 }
 
-window.addEventListener('load', launchSequence);
-</script>
+function startCycle(){
+  resetState();
+  // start animals animation (they run via CSS class)
+  animals.forEach(el => el.classList.add('animate'));
 
+  // after start delay, activate fill (rect translate to 0)
+  const rect = cadoWrap.querySelector('.cado-fill-rect');
+  // small delay to ensure transition applied
+  setTimeout(()=>{
+    launch.classList.add('fill-active');
+    rect.style.transform = 'translateY(0)';
+  }, 50);
+
+  // when fill finishes
+  const fillFinishTime = (START_DELAY + FILL_DURATION) * 1000;
+  setTimeout(()=>{
+    // stop lava core visually
+    launch.classList.add('hide-lava');
+    lavaCore.classList.remove('pulse');
+    // add cooled state after COOL_DELAY
+    setTimeout(()=>{
+      launch.classList.add('cooled');
+      // show smoke animation
+      smoke.classList.add('show');
+      smoke.style.opacity = '1';
+      // after COOL_DURATION fade smoke
+      setTimeout(()=>{
+        smoke.style.opacity = '0';
+      }, COOL_DURATION*1000);
+    }, COOL_DELAY*1000);
+  }, fillFinishTime);
+
+  // schedule next cycle full reset at TOTAL sec
+  setTimeout(()=>{
+    // remove animation classes to prepare for next cycle
+    animals.forEach(el => el.classList.remove('animate'));
+    // restart cycle
+    startCycle();
+  }, TOTAL*1000);
+}
+
+// initial placement of rect translateY(100%)
+(function init(){
+  const rect = cadoWrap.querySelector('.cado-fill-rect');
+  rect.style.transform = 'translateY(100%)';
+  rect.style.transition = `transform ${FILL_DURATION}s linear ${START_DELAY}s`;
+
+  // start after small load delay
+  setTimeout(startCycle, 800);
+})();
+</script>
 </body>
 </html>
