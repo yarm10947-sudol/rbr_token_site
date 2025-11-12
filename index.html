@@ -1,104 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CADO Lava Fill</title>
-<style>
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: #000;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CADO Animation</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1a1a1a, #000);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-/* ===== Контейнер ===== */
-.container {
-  position: relative;
-  width: 600px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .scene {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      overflow: hidden;
+    }
 
-/* ===== Стеклянная надпись ===== */
-.cado {
-  position: relative;
-  font-size: 9rem;
-  font-weight: 900;
-  color: transparent;
-  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(180,180,255,0.1) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-shadow: 0 0 25px rgba(255,255,255,0.3);
-  z-index: 2;
-  mix-blend-mode: screen;
-}
+    .animal {
+      position: absolute;
+      bottom: 80px;
+      width: 150px;
+      transition: transform 3s ease-in-out;
+    }
 
-/* ===== Лава внутри текста ===== */
-.cado::before {
-  content: "CADO";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, #ffcf66, #ff7b00, #ff4500, #d10000);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: blur(1px) brightness(1.4);
-  animation: lavaFill 12s forwards ease-in-out;
-}
+    #cat {
+      left: -150px;
+      animation: moveCat 8s infinite ease-in-out;
+    }
 
-/* ===== Анимация наполнения лавой ===== */
-@keyframes lavaFill {
-  0% {
-    top: 100%;
-  }
-  50% {
-    top: 0%;
-  }
-  70% {
-    filter: brightness(1.6);
-  }
-  100% {
-    top: 0%;
-    filter: brightness(1.1);
-  }
-}
+    #dog {
+      right: -150px;
+      animation: moveDog 8s infinite ease-in-out;
+    }
 
-/* ===== Эффект тепла (мигание внутри) ===== */
-.cado::after {
-  content: "CADO";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(255,150,50,0.8), rgba(255,80,0,0.3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: blur(4px);
-  opacity: 0.4;
-  animation: lavaGlow 1.5s infinite alternate ease-in-out;
-}
+    @keyframes moveCat {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(450px); }
+    }
 
-@keyframes lavaGlow {
-  0% { opacity: 0.2; transform: scale(1); filter: blur(2px); }
-  100% { opacity: 0.6; transform: scale(1.02); filter: blur(4px); }
-}
-</style>
+    @keyframes moveDog {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-450px); }
+    }
+
+    .title {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 90px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #ff3c00;
+      text-shadow: 0 0 20px #ff4000, 0 0 40px #ff0000;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff4000, 0 0 20px #ff0000; }
+      to { text-shadow: 0 0 25px #ff6600, 0 0 50px #ff3300; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="cado">CADO</div>
+  <div class="scene">
+    <img id="cat" class="animal" src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.png" alt="Cat">
+    <img id="dog" class="animal" src="https://cdn.pixabay.com/photo/2016/03/31/19/13/dog-1295667_960_720.png" alt="Dog">
+    <div class="title">CADO</div>
   </div>
 </body>
 </html>
