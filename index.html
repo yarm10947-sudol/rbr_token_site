@@ -1,176 +1,104 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lava Fill CADO</title>
+<title>CADO Lava Fill</title>
 <style>
-/* ===== Основной блок ===== */
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
   background: #000;
-  font-family: 'Orbitron', sans-serif;
-}
-
-#launch-2026 {
-  position: relative;
-  width: 100%;
-  height: 100vh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ===== Видео ===== */
-.center-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 320px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 15px;
-  z-index: 1;
-  box-shadow: 0 0 40px rgba(255,140,0,0.7);
+/* ===== Контейнер ===== */
+.container {
+  position: relative;
+  width: 600px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ===== Животные ===== */
-#animals {
-  position: absolute;
-  bottom: 80px;
-  width: 100%;
-  height: 150px;
-  z-index: 2;
-}
-.animal {
-  position: absolute;
-  bottom: 0;
-  width: 120px;
-  transition: transform 4s ease-in-out;
-}
-.cat { left: -140px; }
-.dog { right: -140px; }
-
-/* ===== Надпись CADO ===== */
+/* ===== Стеклянная надпись ===== */
 .cado {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 4rem;
+  position: relative;
+  font-size: 9rem;
   font-weight: 900;
   color: transparent;
-  background: linear-gradient(to bottom, #ffffffaa 0%, #ffffff33 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(180,180,255,0.1) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  z-index: 3;
-  opacity: 1;
-}
-
-/* ===== Лава ===== */
-.lava-stream {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15px;
-  height: 0;
-  background: linear-gradient(to bottom, #ffcf66, #ff7b00, #ff4500, #d10000);
-  border-radius: 6px;
-  box-shadow: 0 0 30px rgba(255,120,0,0.9), 0 0 60px rgba(255,60,0,0.6);
+  text-shadow: 0 0 25px rgba(255,255,255,0.3);
   z-index: 2;
+  mix-blend-mode: screen;
 }
 
-/* ===== Дым ===== */
-.cado-smoke {
+/* ===== Лава внутри текста ===== */
+.cado::before {
+  content: "CADO";
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 50px;
-  pointer-events: none;
-  background: radial-gradient(rgba(200,200,200,0.4), transparent);
-  opacity: 0;
-  filter: blur(10px);
-  z-index: 2;
-  border-radius: 50%;
-  animation: smokeRise 3s forwards;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #ffcf66, #ff7b00, #ff4500, #d10000);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: blur(1px) brightness(1.4);
+  animation: lavaFill 12s forwards ease-in-out;
 }
 
-@keyframes smokeRise {
-  0% { transform: translateX(-50%) translateY(0) scale(1); opacity:0; }
-  50% { opacity:0.5; }
-  100% { transform: translateX(-50%) translateY(-60px) scale(1.2); opacity:0; }
+/* ===== Анимация наполнения лавой ===== */
+@keyframes lavaFill {
+  0% {
+    top: 100%;
+  }
+  50% {
+    top: 0%;
+  }
+  70% {
+    filter: brightness(1.6);
+  }
+  100% {
+    top: 0%;
+    filter: brightness(1.1);
+  }
+}
+
+/* ===== Эффект тепла (мигание внутри) ===== */
+.cado::after {
+  content: "CADO";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,150,50,0.8), rgba(255,80,0,0.3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: blur(4px);
+  opacity: 0.4;
+  animation: lavaGlow 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes lavaGlow {
+  0% { opacity: 0.2; transform: scale(1); filter: blur(2px); }
+  100% { opacity: 0.6; transform: scale(1.02); filter: blur(4px); }
 }
 </style>
 </head>
 <body>
-<section id="launch-2026">
-  <video class="center-video" autoplay muted loop>
-    <source src="InShot_20251109_161136016.mp4" type="video/mp4">
-  </video>
-
-  <div id="animals">
-    <img src="40b1e017-cd54-4f7b-8f20-5faaf22c659b.jpeg" alt="Cat" class="animal cat">
-    <img src="a8a8adb7-1fcd-4584-be0a-566a0f681b67.jpeg" alt="Dog" class="animal dog">
+  <div class="container">
+    <div class="cado">CADO</div>
   </div>
-
-  <div class="lava-stream"></div>
-  <div class="cado">CADO</div>
-</section>
-
-<script>
-const lava = document.querySelector('.lava-stream');
-const cado = document.querySelector('.cado');
-const cat = document.querySelector('.cat');
-const dog = document.querySelector('.dog');
-
-function animateSequence() {
-  // Сброс
-  lava.style.height = '0px';
-  cado.style.background = 'linear-gradient(to bottom, #ffffffaa 0%, #ffffff33 100%)';
-  const smokeExisting = document.querySelector('.cado-smoke');
-  if (smokeExisting) smokeExisting.remove();
-
-  // Анимация животных
-  cat.style.transform = 'translateX(50vw)';
-  dog.style.transform = 'translateX(-50vw)';
-
-  // Анимация лавы в надпись
-  setTimeout(() => {
-    lava.style.transition = 'height 30s linear';
-    lava.style.height = '200px';
-  }, 500);
-
-  // Заполнение надписи лавой
-  setTimeout(() => {
-    cado.style.background = 'linear-gradient(to bottom, #ffcf66, #ff7b00, #ff4500, #d10000)';
-  }, 3000);
-
-  // Дым и "остывание"
-  setTimeout(() => {
-    const smoke = document.createElement('div');
-    smoke.classList.add('cado-smoke');
-    document.getElementById('launch-2026').appendChild(smoke);
-    cado.style.background = 'linear-gradient(to bottom, #a3c2c2, #7f9d9d)'; // адаманд цвет
-  }, 35000);
-
-  // Сброс животных
-  setTimeout(() => {
-    cat.style.transform = 'translateX(0)';
-    dog.style.transform = 'translateX(0)';
-  }, 60000);
-
-  // Повтор цикла
-  setTimeout(() => {
-    animateSequence();
-  }, 70000);
-}
-
-window.addEventListener('load', animateSequence);
-</script>
 </body>
 </html>
